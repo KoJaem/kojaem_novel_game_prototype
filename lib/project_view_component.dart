@@ -2,6 +2,8 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame/input.dart';
+import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
 import 'package:jenny_study/main.dart';
 
@@ -10,6 +12,8 @@ class ProjectViewComponent extends PositionComponent
   final background = SpriteComponent();
   final girl1 = SpriteComponent();
   final girl2 = SpriteComponent();
+  late final ButtonComponent forwardButtonComponent;
+  Completer<void> _forwardCompleter = Completer();
 
   @override
   FutureOr<void> onLoad() {
@@ -28,7 +32,33 @@ class ProjectViewComponent extends PositionComponent
       ..position = Vector2(gameRef.size.x * 0.99, gameRef.size.y * 0.1)
       ..anchor = Anchor.topRight;
 
-    addAll([background, girl1, girl2]);
+    forwardButtonComponent = ButtonComponent(
+        button: PositionComponent(),
+        size: gameRef.size,
+        onPressed: () {
+          if (!_forwardCompleter.isCompleted) {
+            _forwardCompleter.complete();
+          }
+        });
+
+    addAll([background, girl1, girl2, forwardButtonComponent]);
     return super.onLoad();
+  }
+
+  @override
+  FutureOr<bool> onLineStart(DialogueLine line) async {
+    _forwardCompleter = Completer();
+    await _advance(line);
+    return super.onLineStart(line);
+  }
+
+  Future<void> _advance(DialogueLine line) async {
+    var characterName = line.character?.name;
+    var lineText = line.text;
+    // var dialogueLineText = '$characterName ${line.text}';
+    var dialogueText =
+        characterName != null ? '$characterName: $lineText' : lineText;
+    debugPrint('debug: $dialogueText');
+    return _forwardCompleter.future;
   }
 }
