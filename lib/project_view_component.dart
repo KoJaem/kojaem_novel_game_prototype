@@ -16,6 +16,9 @@ class ProjectViewComponent extends PositionComponent
   final girl2 = SpriteComponent();
   late final ButtonComponent forwardButtonComponent;
   Completer<void> _forwardCompleter = Completer();
+  Completer<int> _choiceCompleter = Completer<int>();
+
+  List<ButtonComponent> optionsList = [];
 
   @override
   FutureOr<void> onLoad() {
@@ -51,7 +54,7 @@ class ProjectViewComponent extends PositionComponent
         });
 
     mainDialogueTextComponent = TextBoxComponent(
-      text: '',
+      size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
       textRenderer: dialogPaint,
       position: Vector2(
         gameRef.size.x * .05,
@@ -59,8 +62,11 @@ class ProjectViewComponent extends PositionComponent
       ),
       boxConfig: TextBoxConfig(
         maxWidth: gameRef.size.x * .9,
+        margins: const EdgeInsets.all(8.0),
+        // timePerChar: 0.05,
       ),
     );
+
     addAll([
       background,
       girl1,
@@ -78,13 +84,43 @@ class ProjectViewComponent extends PositionComponent
     return super.onLineStart(line);
   }
 
+  @override
+  FutureOr<int?> onChoiceStart(DialogueChoice choice) async {
+    _choiceCompleter = Completer<int>();
+    forwardButtonComponent.removeFromParent();
+    mainDialogueTextComponent.text = '';
+    for (int i = 0; i < choice.options.length; i++) {
+      optionsList.add(ButtonComponent(
+          position: Vector2(
+            gameRef.size.x * .05 + 8,
+            gameRef.size.y * .1 + i * 50 + 8,
+          ), // position 에 8을 더하는 이유 : `mainDialogueTextComponent` 의 margin 값
+          button: TextComponent(
+              text: choice.options[i].text,
+              textRenderer: TextPaint(
+                  style: const TextStyle(
+                color: CustomColor.white,
+                backgroundColor: CustomColor.darkBlueGray,
+                fontSize: 20,
+                height: 1.4,
+              )))));
+    }
+    addAll(optionsList);
+    await _getChoice(choice);
+
+    return _choiceCompleter.future;
+  }
+
+  Future<void> _getChoice(DialogueChoice choice) async {
+    return _forwardCompleter.future;
+  }
+
   Future<void> _advance(DialogueLine line) async {
     var characterName = line.character?.name;
     var lineText = line.text;
     var dialogueText =
         characterName != null ? '$characterName: $lineText' : lineText;
     mainDialogueTextComponent.text = dialogueText;
-    debugPrint('debug: $dialogueText');
     return _forwardCompleter.future;
   }
 }
