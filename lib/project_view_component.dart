@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
 import 'package:jenny_study/constants/customColor.dart';
 import 'package:jenny_study/main.dart';
+import 'package:jenny_study/main_dialogue_text_component.dart';
 
 class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {
@@ -53,7 +54,7 @@ class ProjectViewComponent extends PositionComponent
           }
         });
 
-    mainDialogueTextComponent = TextBoxComponent(
+    mainDialogueTextComponent = MainDialogueTextComponent(
       size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
       textRenderer: dialogPaint,
       position: Vector2(
@@ -63,6 +64,7 @@ class ProjectViewComponent extends PositionComponent
       boxConfig: TextBoxConfig(
         maxWidth: gameRef.size.x * .9,
         margins: const EdgeInsets.all(8.0),
+        growingBox: false,
         // timePerChar: 0.05,
       ),
     );
@@ -91,19 +93,22 @@ class ProjectViewComponent extends PositionComponent
     mainDialogueTextComponent.text = '';
     for (int i = 0; i < choice.options.length; i++) {
       optionsList.add(ButtonComponent(
-          position: Vector2(
-            gameRef.size.x * .05 + 8,
-            gameRef.size.y * .1 + i * 50 + 8,
-          ), // position 에 8을 더하는 이유 : `mainDialogueTextComponent` 의 margin 값
-          button: TextComponent(
-              text: choice.options[i].text,
-              textRenderer: TextPaint(
-                  style: const TextStyle(
-                color: CustomColor.white,
-                backgroundColor: CustomColor.darkBlueGray,
-                fontSize: 20,
-                height: 1.4,
-              )))));
+        position: Vector2(
+          gameRef.size.x * .05 + 8,
+          gameRef.size.y * .1 + i * 50 + 8,
+        ), // position 에 8을 더하는 이유 : `mainDialogueTextComponent` 의 margin 값
+        button: TextComponent(
+          text: choice.options[i].text,
+          textRenderer: TextPaint(
+            style: const TextStyle(
+              color: CustomColor.white,
+              backgroundColor: CustomColor.darkBlueGray,
+              fontSize: 20,
+              height: 1.4,
+            ),
+          ),
+        ),
+      ));
     }
     addAll(optionsList);
     await _getChoice(choice);
