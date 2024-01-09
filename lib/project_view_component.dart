@@ -21,14 +21,15 @@ class ProjectViewComponent extends PositionComponent
 
   List<ButtonComponent> optionsList = [];
 
+  final textPaint = TextPaint(
+      style: const TextStyle(
+    color: CustomColor.brightGray,
+    fontSize: 20,
+    height: 1.4,
+  ));
+
   @override
   FutureOr<void> onLoad() {
-    final textPaint = TextPaint(
-        style: const TextStyle(
-      color: CustomColor.brightGray,
-      fontSize: 20,
-      height: 1.4,
-    ));
     background
       ..sprite = gameRef.backgroundSprite
       ..size = gameRef.size;
@@ -98,12 +99,11 @@ class ProjectViewComponent extends PositionComponent
         ), // position 에 8을 더하는 이유 : `mainDialogueTextComponent` 의 margin 값
         button: TextComponent(
           text: choice.options[i].text,
-          textRenderer: TextPaint(
-            style: const TextStyle(
-              color: CustomColor.white,
-              backgroundColor: CustomColor.darkBlueGray,
-              fontSize: 20,
-              height: 1.4,
+          textRenderer: textPaint.copyWith(
+            (p0) => p0.merge(
+              TextStyle(
+                backgroundColor: CustomColor.black.withAlpha(150),
+              ),
             ),
           ),
         ),
