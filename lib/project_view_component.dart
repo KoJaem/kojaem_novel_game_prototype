@@ -93,26 +93,37 @@ class ProjectViewComponent extends PositionComponent
     mainDialogueTextComponent.text = '';
     for (int i = 0; i < choice.options.length; i++) {
       optionsList.add(ButtonComponent(
-        position: Vector2(
-          gameRef.size.x * .05 + 8,
-          gameRef.size.y * .1 + i * 50 + 8,
-        ), // position 에 8을 더하는 이유 : `mainDialogueTextComponent` 의 margin 값
-        button: TextComponent(
-          text: choice.options[i].text,
-          textRenderer: textPaint.copyWith(
-            (p0) => p0.merge(
-              TextStyle(
-                backgroundColor: CustomColor.black.withAlpha(150),
+          position: Vector2(
+            gameRef.size.x * .05 + 8,
+            gameRef.size.y * .1 + i * 50 + 8,
+          ), // position 에 8을 더하는 이유 : `mainDialogueTextComponent` 의 margin 값
+          button: TextComponent(
+            text: choice.options[i].text,
+            textRenderer: textPaint.copyWith(
+              (p0) => p0.merge(
+                TextStyle(
+                  backgroundColor: CustomColor.black.withAlpha(150),
+                ),
               ),
             ),
           ),
-        ),
-      ));
+          onPressed: () {
+            if (!_choiceCompleter.isCompleted) {
+              _choiceCompleter.complete(i);
+            }
+          }));
     }
     addAll(optionsList);
     await _getChoice(choice);
 
     return _choiceCompleter.future;
+  }
+
+  @override
+  FutureOr<void> onChoiceFinish(DialogueOption option) {
+    removeAll(optionsList);
+    optionsList = [];
+    add(forwardButtonComponent);
   }
 
   Future<void> _getChoice(DialogueChoice choice) async {
