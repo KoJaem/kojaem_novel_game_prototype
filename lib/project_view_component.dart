@@ -23,10 +23,9 @@ class ProjectViewComponent extends PositionComponent
 
   @override
   FutureOr<void> onLoad() {
-    final dialogPaint = TextPaint(
+    final textPaint = TextPaint(
         style: const TextStyle(
-      color: CustomColor.white,
-      backgroundColor: CustomColor.darkBlueGray,
+      color: CustomColor.brightGray,
       fontSize: 20,
       height: 1.4,
     ));
@@ -56,7 +55,7 @@ class ProjectViewComponent extends PositionComponent
 
     mainDialogueTextComponent = MainDialogueTextComponent(
       size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
-      textRenderer: dialogPaint,
+      textRenderer: textPaint,
       position: Vector2(
         gameRef.size.x * .05,
         gameRef.size.y * .65,

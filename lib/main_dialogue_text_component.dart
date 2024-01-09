@@ -1,10 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:jenny_study/constants/customColor.dart';
-import 'package:jenny_study/main.dart';
 
-class MainDialogueTextComponent extends TextBoxComponent
-    with HasGameRef<JennyGame> {
+class MainDialogueTextComponent extends TextBoxComponent {
   MainDialogueTextComponent({
     super.size,
     super.textRenderer,
@@ -14,8 +12,8 @@ class MainDialogueTextComponent extends TextBoxComponent
 
   @override
   void drawBackground(Canvas c) {
-    Rect rect = Rect.fromLTWH(0, 0, gameRef.size.x, gameRef.size.y);
-    c.drawRect(rect, Paint()..color = CustomColor.white.withAlpha(90));
+    Rect rect = Rect.fromLTWH(0, 0, size.x, size.y);
+    c.drawRect(rect, Paint()..color = CustomColor.darkBlueGray.withAlpha(90));
     super.drawBackground(c);
   }
 }

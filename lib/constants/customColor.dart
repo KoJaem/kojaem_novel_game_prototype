@@ -6,4 +6,5 @@ class CustomColor {
   static const Color darkBlueGray = Color(0xff869bb3);
   static const Color white = Color(0xffffffff);
   static const Color black = Color(0xFF000000);
+  static const Color darkGreen = Color(0xFF126b1d);
 }
