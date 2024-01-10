@@ -12,10 +12,11 @@ import 'package:jenny_study/main_dialogue_text_component.dart';
 class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {
   late final TextBoxComponent mainDialogueTextComponent;
+  late final TextBoxComponent nameDialogueTextComponent;
   final background = SpriteComponent();
   final girl1 = SpriteComponent();
   final girl2 = SpriteComponent();
-  late final ButtonComponent forwardButtonComponent;
+  late final ButtonComponent forwardButtonComponent; // 대화 넘기는 감지 버튼
   Completer<void> _forwardCompleter = Completer();
   Completer<int> _choiceCompleter = Completer<int>();
 
@@ -54,12 +55,31 @@ class ProjectViewComponent extends PositionComponent
           }
         });
 
-    mainDialogueTextComponent = MainDialogueTextComponent(
+    mainDialogueTextComponent = DialogueTextComponent(
       size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
       textRenderer: textPaint,
       position: Vector2(
         gameRef.size.x * .05,
         gameRef.size.y * .65,
+      ),
+      boxConfig: TextBoxConfig(
+        margins: const EdgeInsets.all(8.0),
+        growingBox: false,
+        // timePerChar: 0.05,
+      ),
+    );
+
+    nameDialogueTextComponent = DialogueTextComponent(
+      size: Vector2(200, 40),
+      align: Anchor.center,
+      textRenderer: textPaint.copyWith(
+        (p0) => p0.merge(
+          const TextStyle(fontSize: 20),
+        ),
+      ),
+      position: Vector2(
+        gameRef.size.x * .05,
+        gameRef.size.y * .65 - 40,
       ),
       boxConfig: TextBoxConfig(
         maxWidth: gameRef.size.x * .9,
@@ -75,6 +95,7 @@ class ProjectViewComponent extends PositionComponent
       girl2,
       forwardButtonComponent,
       mainDialogueTextComponent,
+      nameDialogueTextComponent,
     ]);
     return super.onLoad();
   }
@@ -91,6 +112,7 @@ class ProjectViewComponent extends PositionComponent
     _choiceCompleter = Completer<int>();
     forwardButtonComponent.removeFromParent();
     mainDialogueTextComponent.text = '';
+    nameDialogueTextComponent.text = '';
     for (int i = 0; i < choice.options.length; i++) {
       optionsList.add(ButtonComponent(
           position: Vector2(
@@ -133,9 +155,9 @@ class ProjectViewComponent extends PositionComponent
   Future<void> _advance(DialogueLine line) async {
     var characterName = line.character?.name;
     var lineText = line.text;
-    var dialogueText =
-        characterName != null ? '$characterName: $lineText' : lineText;
-    mainDialogueTextComponent.text = dialogueText;
+    mainDialogueTextComponent.text = lineText;
+    nameDialogueTextComponent.text = characterName ?? '';
+
     return _forwardCompleter.future;
   }
 }
