@@ -153,6 +153,18 @@ class ProjectViewComponent extends PositionComponent
     ]);
   }
 
+  @override
+  FutureOr<void> onNodeStart(Node node) {
+    switch (node.title) {
+      case 'early_morning':
+        background.sprite = gameRef.background2Sprite;
+      case 'jumpTest':
+        background.sprite = gameRef.background3Sprite;
+        girl1.sprite = gameRef.girl1OtherSprite;
+    }
+    return super.onNodeStart(node);
+  }
+
   Future<void> _getChoice(DialogueChoice choice) async {
     return _forwardCompleter.future;
   }
