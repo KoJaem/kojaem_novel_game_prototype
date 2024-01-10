@@ -19,6 +19,7 @@ class ProjectViewComponent extends PositionComponent
   late final ButtonComponent forwardButtonComponent; // 대화 넘기는 감지 버튼
   Completer<void> _forwardCompleter = Completer();
   Completer<int> _choiceCompleter = Completer<int>();
+  bool isNameComponentRendered = false;
 
   List<ButtonComponent> optionsList = [];
 
@@ -111,8 +112,8 @@ class ProjectViewComponent extends PositionComponent
   FutureOr<int?> onChoiceStart(DialogueChoice choice) async {
     _choiceCompleter = Completer<int>();
     forwardButtonComponent.removeFromParent();
-    mainDialogueTextComponent.text = '';
-    nameDialogueTextComponent.text = '';
+    mainDialogueTextComponent.removeFromParent();
+    nameDialogueTextComponent.removeFromParent();
     for (int i = 0; i < choice.options.length; i++) {
       optionsList.add(ButtonComponent(
           position: Vector2(
@@ -145,7 +146,11 @@ class ProjectViewComponent extends PositionComponent
   FutureOr<void> onChoiceFinish(DialogueOption option) {
     removeAll(optionsList);
     optionsList = [];
-    add(forwardButtonComponent);
+    addAll([
+      forwardButtonComponent,
+      mainDialogueTextComponent,
+      nameDialogueTextComponent
+    ]);
   }
 
   Future<void> _getChoice(DialogueChoice choice) async {
@@ -157,6 +162,16 @@ class ProjectViewComponent extends PositionComponent
     var lineText = line.text;
     mainDialogueTextComponent.text = lineText;
     nameDialogueTextComponent.text = characterName ?? '';
+
+    if (nameDialogueTextComponent.text == '') {
+      nameDialogueTextComponent.removeFromParent();
+      isNameComponentRendered = false;
+    } else {
+      if (!isNameComponentRendered) {
+        add(nameDialogueTextComponent);
+        isNameComponentRendered = true;
+      }
+    }
 
     return _forwardCompleter.future;
   }
