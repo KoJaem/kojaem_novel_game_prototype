@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -20,23 +19,12 @@ void main() async {
 }
 
 class JennyGame extends FlameGame with TapCallbacks {
-  late Sprite backgroundSprite;
-  late Sprite background2Sprite;
-  late Sprite background3Sprite;
-  late Sprite girl1Sprite;
-  late Sprite girl2Sprite;
-  late Sprite girl1OtherSprite;
   YarnProject yarnProject = YarnProject();
   ProjectViewComponent projectViewComponent = ProjectViewComponent();
 
   @override
   FutureOr<void> onLoad() async {
-    backgroundSprite = await loadSprite('background.png');
-    background2Sprite = await loadSprite('background2.png');
-    background3Sprite = await loadSprite('background3.png');
-    girl1Sprite = await loadSprite('girl1.png');
-    girl1OtherSprite = await loadSprite('girl1_other.png');
-    girl2Sprite = await loadSprite('girl2.png');
+    await images.loadAllImages();
 
     String startDialogueData =
         await rootBundle.loadString('assets/yarn/start.yarn');

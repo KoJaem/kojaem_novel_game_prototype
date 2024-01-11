@@ -33,16 +33,16 @@ class ProjectViewComponent extends PositionComponent
   @override
   FutureOr<void> onLoad() {
     background
-      ..sprite = gameRef.backgroundSprite
+      ..sprite = Sprite(gameRef.images.fromCache('background.png'))
       ..size = gameRef.size;
 
     girl1
-      ..sprite = gameRef.girl1Sprite
+      ..sprite = Sprite(gameRef.images.fromCache('girl1.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.01, gameRef.size.y * 0.1);
 
     girl2
-      ..sprite = gameRef.girl2Sprite
+      ..sprite = Sprite(gameRef.images.fromCache('girl2.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.99, gameRef.size.y * 0.1)
       ..anchor = Anchor.topRight;
@@ -157,10 +157,10 @@ class ProjectViewComponent extends PositionComponent
   FutureOr<void> onNodeStart(Node node) {
     switch (node.title) {
       case 'early_morning':
-        background.sprite = gameRef.background2Sprite;
+        background.sprite = Sprite(gameRef.images.fromCache('background2.png'));
       case 'jumpTest':
-        background.sprite = gameRef.background3Sprite;
-        girl1.sprite = gameRef.girl1OtherSprite;
+        background.sprite = Sprite(gameRef.images.fromCache('background3.png'));
+        girl1.sprite = Sprite(gameRef.images.fromCache('girl1_other.png'));
     }
     return super.onNodeStart(node);
   }
