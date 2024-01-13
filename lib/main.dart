@@ -29,7 +29,7 @@ class JennyGame extends FlameGame with TapCallbacks {
     String startDialogueData =
         await rootBundle.loadString('assets/yarn/start.yarn');
 
-    String earlyMoringData =
+    String earlyMorningData =
         await rootBundle.loadString('assets/yarn/early_morning.yarn');
 
     String jumpTestData =
@@ -37,7 +37,7 @@ class JennyGame extends FlameGame with TapCallbacks {
 
     yarnProject
       ..parse(startDialogueData)
-      ..parse(earlyMoringData)
+      ..parse(earlyMorningData)
       ..parse(jumpTestData);
 
     var dialogueRunner = DialogueRunner(

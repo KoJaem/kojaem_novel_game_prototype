@@ -11,8 +11,8 @@ import 'package:jenny_study/main_dialogue_text_component.dart';
 
 class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {
-  late final TextBoxComponent mainDialogueTextComponent;
-  late final TextBoxComponent nameDialogueTextComponent;
+  late final DialogueTextComponent mainDialogueTextComponent;
+  late final DialogueTextComponent nameDialogueTextComponent;
   final background = SpriteComponent();
   final girl1 = SpriteComponent();
   final girl2 = SpriteComponent();
@@ -68,6 +68,7 @@ class ProjectViewComponent extends PositionComponent
         growingBox: false,
         // timePerChar: 0.05,
       ),
+      customTimePerChar: 100,
     );
 
     nameDialogueTextComponent = DialogueTextComponent(
@@ -172,7 +173,8 @@ class ProjectViewComponent extends PositionComponent
   Future<void> _advance(DialogueLine line) async {
     var characterName = line.character?.name;
     var lineText = line.text;
-    mainDialogueTextComponent.text = lineText;
+    // mainDialogueTextComponent.text = lineText;
+    mainDialogueTextComponent.updateText(lineText);
     nameDialogueTextComponent.text = characterName ?? '';
 
     if (nameDialogueTextComponent.text == '') {
