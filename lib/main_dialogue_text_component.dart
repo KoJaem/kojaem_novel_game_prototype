@@ -30,7 +30,7 @@ class DialogueTextComponent extends TextBoxComponent {
   void drawBackground(Canvas c) {
     Rect rect = Rect.fromLTWH(0, 0, size.x, size.y);
     c.drawRect(rect,
-        Paint()..color = bgColor ?? CustomColor.darkBlueGray.withAlpha(150));
+        Paint()..color = bgColor ?? CustomColor.darkBlueGray.withAlpha(1));
     super.drawBackground(c);
   }
 }

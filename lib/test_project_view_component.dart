@@ -6,6 +6,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
 import 'package:jenny_study/constants/customColor.dart';
+import 'package:jenny_study/dialogue_overlay.dart';
 import 'package:jenny_study/main.dart';
 import 'package:jenny_study/main_dialogue_text_component.dart';
 
@@ -13,6 +14,8 @@ class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {
   late DialogueTextComponent mainDialogueTextComponent;
   late final DialogueTextComponent nameDialogueTextComponent;
+  late final DialogueOverlay mainDialogueOverlay;
+  late final DialogueOverlay nameDialogueOverlay;
   final background = SpriteComponent();
   final girl1 = SpriteComponent();
   final girl2 = SpriteComponent();
@@ -56,20 +59,13 @@ class ProjectViewComponent extends PositionComponent
           }
         });
 
-    // mainDialogueTextComponent = DialogueTextComponent(
-    //   size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
-    //   textRenderer: textPaint,
-    //   position: Vector2(
-    //     gameRef.size.x * .05,
-    //     gameRef.size.y * .65,
-    //   ),
-    //   boxConfig: TextBoxConfig(
-    //     margins: const EdgeInsets.all(8.0),
-    //     growingBox: false,
-    //     // timePerChar: 0.05,
-    //   ),
-    //   customTimePerChar: 100,
-    // );
+    mainDialogueOverlay = DialogueOverlay(
+      size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
+      position: Vector2(
+        gameRef.size.x * .05,
+        gameRef.size.y * .65,
+      ),
+    );
 
     nameDialogueTextComponent = DialogueTextComponent(
       size: Vector2(200, 40),
@@ -91,13 +87,23 @@ class ProjectViewComponent extends PositionComponent
       ),
     );
 
+    nameDialogueOverlay = DialogueOverlay(
+      size: Vector2(200, 40),
+      position: Vector2(
+        gameRef.size.x * .05,
+        gameRef.size.y * .65 - 40,
+      ),
+    );
+
     addAll([
       background,
       girl1,
       girl2,
       forwardButtonComponent,
       // mainDialogueTextComponent,
+      mainDialogueOverlay,
       nameDialogueTextComponent,
+      nameDialogueOverlay,
     ]);
     return super.onLoad();
   }
@@ -119,8 +125,8 @@ class ProjectViewComponent extends PositionComponent
   FutureOr<int?> onChoiceStart(DialogueChoice choice) async {
     _choiceCompleter = Completer<int>();
     forwardButtonComponent.removeFromParent();
-    mainDialogueTextComponent.removeFromParent();
-    nameDialogueTextComponent.removeFromParent();
+    mainDialogueOverlay.removeFromParent();
+    nameDialogueOverlay.removeFromParent();
     for (int i = 0; i < choice.options.length; i++) {
       optionsList.add(ButtonComponent(
           position: Vector2(
@@ -156,7 +162,9 @@ class ProjectViewComponent extends PositionComponent
     addAll([
       forwardButtonComponent,
       // mainDialogueTextComponent,
-      nameDialogueTextComponent
+      mainDialogueOverlay,
+      nameDialogueTextComponent,
+      nameDialogueOverlay,
     ]);
   }
 
@@ -169,7 +177,18 @@ class ProjectViewComponent extends PositionComponent
         background.sprite = Sprite(gameRef.images.fromCache('background3.png'));
         girl1.sprite = Sprite(gameRef.images.fromCache('girl1_other.png'));
     }
+    add(mainDialogueOverlay); // 노드 변경되고 mainDialogueOverlay 추가
     return super.onNodeStart(node);
+  }
+
+  @override
+  FutureOr<void> onNodeFinish(Node node) {
+    nameDialogueTextComponent.removeFromParent();
+    nameDialogueOverlay.removeFromParent();
+    mainDialogueTextComponent.removeFromParent();
+    mainDialogueOverlay.removeFromParent();
+    // 해당 대화 노드가 끝나고 처리하는 부분
+    // this.removeFromParent();
   }
 
   Future<void> _getChoice(DialogueChoice choice) async {
@@ -185,10 +204,11 @@ class ProjectViewComponent extends PositionComponent
 
     if (nameDialogueTextComponent.text == '') {
       nameDialogueTextComponent.removeFromParent();
+      nameDialogueOverlay.removeFromParent();
       isNameComponentRendered = false;
     } else {
       if (!isNameComponentRendered) {
-        add(nameDialogueTextComponent);
+        addAll([nameDialogueOverlay, nameDialogueTextComponent]);
         isNameComponentRendered = true;
       }
     }
