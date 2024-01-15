@@ -12,6 +12,7 @@ class DialogueTextComponent extends TextBoxComponent {
     this.bgColor,
     this.customTimePerChar,
   });
+
   final Color? bgColor;
   final int? customTimePerChar;
 
@@ -28,6 +29,10 @@ class DialogueTextComponent extends TextBoxComponent {
 
   bool checkDialogueFinished() {
     return super.finished;
+  }
+
+  void textComplete() {
+    print("?");
   }
 
   @override

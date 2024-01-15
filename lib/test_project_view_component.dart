@@ -13,6 +13,7 @@ import 'package:jenny_study/main_dialogue_text_component.dart';
 class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {
   late DialogueTextComponent mainDialogueTextComponent;
+  late DialogueTextComponent completedMainDialogueTextComponent;
   late final DialogueTextComponent nameDialogueTextComponent;
   late final DialogueOverlay mainDialogueOverlay;
   late final DialogueOverlay nameDialogueOverlay;
@@ -23,6 +24,7 @@ class ProjectViewComponent extends PositionComponent
   Completer<void> _forwardCompleter = Completer();
   Completer<int> _choiceCompleter = Completer<int>();
   bool isNameComponentRendered = false;
+  bool isCompletedMainDialogueRendered = false;
 
   List<ButtonComponent> optionsList = [];
 
@@ -54,8 +56,26 @@ class ProjectViewComponent extends PositionComponent
         button: PositionComponent(),
         size: gameRef.size,
         onPressed: () {
-          if (mainDialogueTextComponent.checkDialogueFinished()) {
+          if ((mainDialogueTextComponent.checkDialogueFinished() ||
+                  isCompletedMainDialogueRendered) &&
+              !_forwardCompleter.isCompleted) {
             _forwardCompleter.complete();
+          } else {
+            completedMainDialogueTextComponent = DialogueTextComponent(
+              size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
+              textRenderer: textPaint,
+              position: Vector2(
+                gameRef.size.x * .05,
+                gameRef.size.y * .65,
+              ),
+              boxConfig: TextBoxConfig(
+                margins: const EdgeInsets.all(8.0),
+                growingBox: false,
+              ),
+            )..text = mainDialogueTextComponent.text;
+            completedMainDialogueTextComponent.addToParent(this);
+            isCompletedMainDialogueRendered = true;
+            mainDialogueTextComponent.removeFromParent();
           }
         });
 
@@ -117,7 +137,9 @@ class ProjectViewComponent extends PositionComponent
 
   @override
   FutureOr<void> onLineFinish(DialogueLine line) async {
-    remove(mainDialogueTextComponent);
+    mainDialogueTextComponent.removeFromParent();
+    completedMainDialogueTextComponent.removeFromParent();
+    isCompletedMainDialogueRendered = false;
     return super.onLineFinish(line);
   }
 
@@ -170,6 +192,7 @@ class ProjectViewComponent extends PositionComponent
 
   @override
   FutureOr<void> onNodeStart(Node node) {
+    add(forwardButtonComponent);
     switch (node.title) {
       case 'early_morning':
         background.sprite = Sprite(gameRef.images.fromCache('background2.png'));
@@ -187,12 +210,14 @@ class ProjectViewComponent extends PositionComponent
     nameDialogueOverlay.removeFromParent();
     mainDialogueTextComponent.removeFromParent();
     mainDialogueOverlay.removeFromParent();
+    completedMainDialogueTextComponent.removeFromParent();
+    forwardButtonComponent.removeFromParent();
     // 해당 대화 노드가 끝나고 처리하는 부분
     // this.removeFromParent();
   }
 
   Future<void> _getChoice(DialogueChoice choice) async {
-    return _forwardCompleter.future;
+    // return _forwardCompleter.future;
   }
 
   Future<void> _advance(DialogueLine line) async {
@@ -211,6 +236,20 @@ class ProjectViewComponent extends PositionComponent
         isNameComponentRendered = true;
       }
     }
+
+    mainDialogueTextComponent = DialogueTextComponent(
+      size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
+      textRenderer: textPaint,
+      position: Vector2(
+        gameRef.size.x * .05,
+        gameRef.size.y * .65,
+      ),
+      boxConfig: TextBoxConfig(
+        margins: const EdgeInsets.all(8.0),
+        growingBox: false,
+        timePerChar: 0.05,
+      ),
+    )..text = lineText;
 
     mainDialogueTextComponent = DialogueTextComponent(
       size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
