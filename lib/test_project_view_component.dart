@@ -54,7 +54,7 @@ class ProjectViewComponent extends PositionComponent
         button: PositionComponent(),
         size: gameRef.size,
         onPressed: () {
-          if (!_forwardCompleter.isCompleted) {
+          if (mainDialogueTextComponent.checkDialogueFinished()) {
             _forwardCompleter.complete();
           }
         });
@@ -199,7 +199,6 @@ class ProjectViewComponent extends PositionComponent
     var characterName = line.character?.name;
     var lineText = line.text;
     // mainDialogueTextComponent.text = lineText;
-    // mainDialogueTextComponent.updateText(lineText);
     nameDialogueTextComponent.text = characterName ?? '';
 
     if (nameDialogueTextComponent.text == '') {
@@ -225,7 +224,6 @@ class ProjectViewComponent extends PositionComponent
         growingBox: false,
         timePerChar: 0.05,
       ),
-      customTimePerChar: 100,
     )..text = lineText;
 
     add(mainDialogueTextComponent);

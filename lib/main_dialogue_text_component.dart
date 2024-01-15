@@ -26,6 +26,10 @@ class DialogueTextComponent extends TextBoxComponent {
     }
   }
 
+  bool checkDialogueFinished() {
+    return super.finished;
+  }
+
   @override
   void drawBackground(Canvas c) {
     Rect rect = Rect.fromLTWH(0, 0, size.x, size.y);
