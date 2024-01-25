@@ -12,8 +12,10 @@ import 'package:jenny_study/main_dialogue_text_component.dart';
 
 class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {
-  late DialogueTextComponent mainDialogueTextComponent;
-  late DialogueTextComponent completedMainDialogueTextComponent;
+  late DialogueTextComponent mainDialogueTextComponent =
+      DialogueTextComponent();
+  late DialogueTextComponent completedMainDialogueTextComponent =
+      DialogueTextComponent();
   late final DialogueTextComponent nameDialogueTextComponent;
   late final DialogueOverlay mainDialogueOverlay;
   late final DialogueOverlay nameDialogueOverlay;
@@ -73,7 +75,7 @@ class ProjectViewComponent extends PositionComponent
                 growingBox: false,
               ),
             )..text = mainDialogueTextComponent.text;
-            completedMainDialogueTextComponent.addToParent(this);
+            add(completedMainDialogueTextComponent);
             isCompletedMainDialogueRendered = true;
             mainDialogueTextComponent.removeFromParent();
           }
