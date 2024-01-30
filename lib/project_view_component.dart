@@ -161,7 +161,7 @@ class ProjectViewComponent extends PositionComponent
         background.sprite = Sprite(gameRef.images.fromCache('background2.png'));
       case 'jumpTest':
         background.sprite = Sprite(gameRef.images.fromCache('background3.png'));
-        girl1.sprite = Sprite(gameRef.images.fromCache('girl1_other.png'));
+        girl1.sprite = Sprite(gameRef.images.fromCache('background.png'));
     }
     return super.onNodeStart(node);
   }

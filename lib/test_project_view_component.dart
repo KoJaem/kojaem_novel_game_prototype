@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
@@ -41,17 +42,25 @@ class ProjectViewComponent extends PositionComponent
   FutureOr<void> onLoad() {
     background
       ..sprite = Sprite(gameRef.images.fromCache('background.png'))
-      ..size = gameRef.size;
+      ..size = gameRef.size
+      ..opacity = 0
+      ..add(OpacityEffect.fadeIn(EffectController(duration: 0.25)));
 
     girl1
       ..sprite = Sprite(gameRef.images.fromCache('girl1.png'))
       ..size = Vector2(400, 400)
-      ..position = Vector2(gameRef.size.x * 0.01, gameRef.size.y * 0.1);
+      ..position = Vector2(gameRef.size.x * 0.01, gameRef.size.y * 0.1)
+      ..opacity = 0
+      ..add(
+          OpacityEffect.fadeIn(EffectController(duration: 0.5, startDelay: 1)));
 
     girl2
       ..sprite = Sprite(gameRef.images.fromCache('girl2.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.99, gameRef.size.y * 0.1)
+      ..opacity = 0
+      ..add(OpacityEffect.fadeIn(
+          EffectController(duration: 0.5, startDelay: 1.5)))
       ..anchor = Anchor.topRight;
 
     forwardButtonComponent = ButtonComponent(
