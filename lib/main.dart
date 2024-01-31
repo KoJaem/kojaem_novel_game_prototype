@@ -21,7 +21,6 @@ void main() async {
 
 class JennyGame extends FlameGame with TapCallbacks {
   YarnProject yarnProject = YarnProject();
-  ProjectViewComponent projectViewComponent = ProjectViewComponent();
 
   @override
   FutureOr<void> onLoad() async {
@@ -41,10 +40,12 @@ class JennyGame extends FlameGame with TapCallbacks {
       ..parse(earlyMorningData)
       ..parse(jumpTestData);
 
+    ProjectViewComponent projectViewComponent =
+        ProjectViewComponent(yarnProject);
+
     var dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [projectViewComponent]);
 
-    // print(yarnProject.variables.getStringValue('\$testImage'));
     dialogueRunner.startDialogue('start');
     add(projectViewComponent);
 

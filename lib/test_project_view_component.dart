@@ -13,6 +13,9 @@ import 'package:jenny_study/main_dialogue_text_component.dart';
 
 class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {
+  ProjectViewComponent(this.yarnProject);
+
+  final YarnProject yarnProject;
   late DialogueTextComponent mainDialogueTextComponent =
       DialogueTextComponent();
   late DialogueTextComponent completedMainDialogueTextComponent =
@@ -285,6 +288,10 @@ class ProjectViewComponent extends PositionComponent
         timePerChar: 0.05,
       ),
     )..text = lineText;
+
+    // 기존 이미지랑 다른부분이 있는지 확인하고 수정하도록 하면 될거같기도함.
+    // print(yarnProject.variables.getStringValue('\$testImage'));
+    // print(yarnProject.variables.variables);
 
     add(mainDialogueTextComponent);
 
