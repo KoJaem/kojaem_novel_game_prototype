@@ -44,6 +44,7 @@ class JennyGame extends FlameGame with TapCallbacks {
     var dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [projectViewComponent]);
 
+    // print(yarnProject.variables.getStringValue('\$testImage'));
     dialogueRunner.startDialogue('start');
     add(projectViewComponent);
 

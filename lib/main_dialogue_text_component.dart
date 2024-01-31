@@ -31,10 +31,6 @@ class DialogueTextComponent extends TextBoxComponent {
     return super.finished;
   }
 
-  void textComplete() {
-    print("?");
-  }
-
   @override
   void drawBackground(Canvas c) {
     Rect rect = Rect.fromLTWH(0, 0, size.x, size.y);

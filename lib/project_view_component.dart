@@ -37,12 +37,12 @@ class ProjectViewComponent extends PositionComponent
       ..size = gameRef.size;
 
     girl1
-      ..sprite = Sprite(gameRef.images.fromCache('girl1.png'))
+      ..sprite = Sprite(gameRef.images.fromCache('test1.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.01, gameRef.size.y * 0.1);
 
     girl2
-      ..sprite = Sprite(gameRef.images.fromCache('girl2.png'))
+      ..sprite = Sprite(gameRef.images.fromCache('test2.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.99, gameRef.size.y * 0.1)
       ..anchor = Anchor.topRight;
@@ -93,11 +93,11 @@ class ProjectViewComponent extends PositionComponent
 
     addAll([
       background,
-      girl1,
-      girl2,
       forwardButtonComponent,
       mainDialogueTextComponent,
       nameDialogueTextComponent,
+      girl1,
+      girl2,
     ]);
     return super.onLoad();
   }

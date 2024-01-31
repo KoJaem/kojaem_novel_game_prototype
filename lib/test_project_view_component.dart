@@ -17,13 +17,15 @@ class ProjectViewComponent extends PositionComponent
       DialogueTextComponent();
   late DialogueTextComponent completedMainDialogueTextComponent =
       DialogueTextComponent();
-  late final DialogueTextComponent nameDialogueTextComponent;
-  late final DialogueOverlay mainDialogueOverlay;
-  late final DialogueOverlay nameDialogueOverlay;
+  late DialogueTextComponent nameDialogueTextComponent =
+      DialogueTextComponent();
+  late DialogueOverlay mainDialogueOverlay = DialogueOverlay();
+  late DialogueOverlay nameDialogueOverlay = DialogueOverlay();
   final background = SpriteComponent();
   final girl1 = SpriteComponent();
   final girl2 = SpriteComponent();
-  late final ButtonComponent forwardButtonComponent; // 대화 넘기는 감지 버튼
+  late ButtonComponent forwardButtonComponent =
+      ButtonComponent(); // 대화 넘기는 감지 버튼
   Completer<void> _forwardCompleter = Completer();
   Completer<int> _choiceCompleter = Completer<int>();
   bool isNameComponentRendered = false;
@@ -47,25 +49,25 @@ class ProjectViewComponent extends PositionComponent
       ..add(OpacityEffect.fadeIn(EffectController(duration: 0.25)));
 
     girl1
-      ..sprite = Sprite(gameRef.images.fromCache('girl1.png'))
+      ..sprite = Sprite(gameRef.images.fromCache('test1.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.01, gameRef.size.y * 0.1)
       ..opacity = 0
       ..add(
-          OpacityEffect.fadeIn(EffectController(duration: 0.5, startDelay: 1)))
-      ..add(OpacityEffect.fadeOut(
-          EffectController(duration: 0.5, startDelay: 1)));
+          OpacityEffect.fadeIn(EffectController(duration: 0.5, startDelay: 1)));
+    // ..add(OpacityEffect.fadeOut(
+    //     EffectController(duration: 0.5, startDelay: 1.5)));
 
     girl2
-      ..sprite = Sprite(gameRef.images.fromCache('girl2.png'))
+      ..sprite = Sprite(gameRef.images.fromCache('test2.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.99, gameRef.size.y * 0.1)
       ..opacity = 0
       ..add(OpacityEffect.fadeIn(
           EffectController(duration: 0.5, startDelay: 1.5)))
-      ..anchor = Anchor.topRight
-      ..add(OpacityEffect.fadeOut(
-          EffectController(duration: 0.5, startDelay: 1)));
+      ..anchor = Anchor.topRight;
+    // ..add(OpacityEffect.fadeOut(
+    //     EffectController(duration: 0.5, startDelay: 1)));
 
     forwardButtonComponent = ButtonComponent(
         button: PositionComponent(),
@@ -132,9 +134,9 @@ class ProjectViewComponent extends PositionComponent
 
     addAll([
       background,
+      forwardButtonComponent,
       girl1,
       girl2,
-      forwardButtonComponent,
       // mainDialogueTextComponent,
       mainDialogueOverlay,
       nameDialogueTextComponent,
@@ -215,7 +217,7 @@ class ProjectViewComponent extends PositionComponent
         background.sprite = Sprite(gameRef.images.fromCache('background3.png'));
         await girl1.add(OpacityEffect.fadeOut(EffectController(duration: 0.5)));
         Future.delayed(const Duration(milliseconds: 500), () {
-          girl1.sprite = Sprite(gameRef.images.fromCache('girl1_other.png'));
+          girl1.sprite = Sprite(gameRef.images.fromCache('test3.png'));
           girl1.add(OpacityEffect.fadeIn(EffectController(duration: 0.5)));
         });
     }
