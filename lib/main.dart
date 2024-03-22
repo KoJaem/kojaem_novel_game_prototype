@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -35,16 +37,47 @@ class JennyGame extends FlameGame with TapCallbacks {
     String jumpTestData =
         await rootBundle.loadString('assets/yarn/jumpTest.yarn');
 
-    yarnProject
-      ..parse(startDialogueData)
-      ..parse(earlyMorningData)
-      ..parse(jumpTestData);
-
     ProjectViewComponent projectViewComponent =
         ProjectViewComponent(yarnProject);
 
     var dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [projectViewComponent]);
+
+    void imageChange(String position, String url) async {
+      switch (position) {
+        case 'right':
+          await projectViewComponent.rightPerson
+              .add(OpacityEffect.fadeOut(EffectController(duration: 0.5)));
+          Future.delayed(const Duration(milliseconds: 500), () {
+            projectViewComponent.rightPerson.sprite =
+                Sprite(images.fromCache(url));
+            projectViewComponent.rightPerson
+                .add(OpacityEffect.fadeIn(EffectController(duration: 0.5)));
+          });
+          break;
+        case 'left':
+          await projectViewComponent.leftPerson
+              .add(OpacityEffect.fadeOut(EffectController(duration: 0.5)));
+          Future.delayed(const Duration(milliseconds: 500), () {
+            projectViewComponent.leftPerson.sprite =
+                Sprite(images.fromCache(url));
+            projectViewComponent.leftPerson
+                .add(OpacityEffect.fadeIn(EffectController(duration: 0.5)));
+          });
+          break;
+        case 'background':
+          projectViewComponent.background.sprite =
+              Sprite(images.fromCache(url));
+        default:
+          break;
+      }
+    }
+
+    yarnProject
+      ..commands.addCommand2('change_image', imageChange)
+      ..parse(startDialogueData)
+      ..parse(earlyMorningData)
+      ..parse(jumpTestData);
 
     dialogueRunner.startDialogue('start');
     add(projectViewComponent);

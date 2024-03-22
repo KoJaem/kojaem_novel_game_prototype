@@ -1,6 +1,7 @@
 <<character "블루" Blue>>
 title: jumpTest
 ---
+<<change_image "background" "background2.png">>
 Blue: 캐릭터 추가도 가능
 White: 테스트
 Red: 테스트

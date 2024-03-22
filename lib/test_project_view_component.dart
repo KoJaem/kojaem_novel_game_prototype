@@ -25,8 +25,8 @@ class ProjectViewComponent extends PositionComponent
   late DialogueOverlay mainDialogueOverlay = DialogueOverlay();
   late DialogueOverlay nameDialogueOverlay = DialogueOverlay();
   final background = SpriteComponent();
-  final girl1 = SpriteComponent();
-  final girl2 = SpriteComponent();
+  final leftPerson = SpriteComponent();
+  final rightPerson = SpriteComponent();
   late ButtonComponent forwardButtonComponent =
       ButtonComponent(); // 대화 넘기는 감지 버튼
   Completer<void> _forwardCompleter = Completer();
@@ -51,17 +51,15 @@ class ProjectViewComponent extends PositionComponent
       ..opacity = 0
       ..add(OpacityEffect.fadeIn(EffectController(duration: 0.25)));
 
-    girl1
+    leftPerson
       ..sprite = Sprite(gameRef.images.fromCache('test1.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.01, gameRef.size.y * 0.1)
       ..opacity = 0
       ..add(
           OpacityEffect.fadeIn(EffectController(duration: 0.5, startDelay: 1)));
-    // ..add(OpacityEffect.fadeOut(
-    //     EffectController(duration: 0.5, startDelay: 1.5)));
 
-    girl2
+    rightPerson
       ..sprite = Sprite(gameRef.images.fromCache('test2.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.99, gameRef.size.y * 0.1)
@@ -138,8 +136,8 @@ class ProjectViewComponent extends PositionComponent
     addAll([
       background,
       forwardButtonComponent,
-      girl1,
-      girl2,
+      leftPerson,
+      rightPerson,
       // mainDialogueTextComponent,
       mainDialogueOverlay,
       nameDialogueTextComponent,
@@ -213,17 +211,6 @@ class ProjectViewComponent extends PositionComponent
   @override
   FutureOr<void> onNodeStart(Node node) async {
     add(forwardButtonComponent);
-    switch (node.title) {
-      case 'early_morning':
-        background.sprite = Sprite(gameRef.images.fromCache('background2.png'));
-      case 'jumpTest':
-        background.sprite = Sprite(gameRef.images.fromCache('background3.png'));
-        await girl1.add(OpacityEffect.fadeOut(EffectController(duration: 0.5)));
-        Future.delayed(const Duration(milliseconds: 500), () {
-          girl1.sprite = Sprite(gameRef.images.fromCache('test3.png'));
-          girl1.add(OpacityEffect.fadeIn(EffectController(duration: 0.5)));
-        });
-    }
     add(mainDialogueOverlay); // 노드 변경되고 mainDialogueOverlay 추가
     return super.onNodeStart(node);
   }
