@@ -8,7 +8,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:jenny/jenny.dart';
-import 'package:jenny_study/test_project_view_component.dart';
+import 'package:jenny_study/project_view_component.dart';
 // import 'package:jenny_study/project_view_component.dart';
 
 void main() async {
@@ -31,11 +31,8 @@ class JennyGame extends FlameGame with TapCallbacks {
     String startDialogueData =
         await rootBundle.loadString('assets/yarn/start.yarn');
 
-    String earlyMorningData =
-        await rootBundle.loadString('assets/yarn/early_morning.yarn');
-
-    String jumpTestData =
-        await rootBundle.loadString('assets/yarn/jumpTest.yarn');
+    String consultationData =
+        await rootBundle.loadString('assets/yarn/consultation.yarn');
 
     ProjectViewComponent projectViewComponent =
         ProjectViewComponent(yarnProject);
@@ -43,16 +40,16 @@ class JennyGame extends FlameGame with TapCallbacks {
     var dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [projectViewComponent]);
 
-    void imageChange(String position, String url) async {
+    void imageChangeWithAnimation(String position, String url) async {
       switch (position) {
         case 'right':
           await projectViewComponent.rightPerson
-              .add(OpacityEffect.fadeOut(EffectController(duration: 0.5)));
-          Future.delayed(const Duration(milliseconds: 500), () {
+              .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
+          Future.delayed(const Duration(milliseconds: 600), () {
             projectViewComponent.rightPerson.sprite =
                 Sprite(images.fromCache(url));
             projectViewComponent.rightPerson
-                .add(OpacityEffect.fadeIn(EffectController(duration: 0.5)));
+                .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
           });
           break;
         case 'left':
@@ -73,17 +70,37 @@ class JennyGame extends FlameGame with TapCallbacks {
       }
     }
 
+    void imageChange(String position, String url) async {
+      switch (position) {
+        case 'right':
+          projectViewComponent.rightPerson.sprite =
+              Sprite(images.fromCache(url));
+          break;
+        case 'left':
+          projectViewComponent.leftPerson.sprite =
+              Sprite(images.fromCache(url));
+          break;
+        case 'background':
+          projectViewComponent.background.sprite =
+              Sprite(images.fromCache(url));
+        default:
+          break;
+      }
+    }
+
     void removeText() {
       projectViewComponent.fastCompletedMainDialogueTextComponent
           .removeFromParent();
+      projectViewComponent.nameDialogueTextComponent.removeFromParent();
     }
 
     yarnProject
+      ..commands
+          .addCommand2('change_image_with_animation', imageChangeWithAnimation)
       ..commands.addCommand2('change_image', imageChange)
       ..commands.addCommand0('remove_text', removeText)
       ..parse(startDialogueData)
-      ..parse(earlyMorningData)
-      ..parse(jumpTestData);
+      ..parse(consultationData);
 
     dialogueRunner.startDialogue('start');
     add(projectViewComponent);

@@ -1,8 +1,0 @@
-<<character "테스트 더미" test>>
-title: jumpTest
----
-<<change_image "background" "background2.png">>
-test: 캐릭터 추가도 가능
-boy: 테스트
-girl: 테스트
-===
