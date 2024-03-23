@@ -18,7 +18,7 @@ class ProjectViewComponent extends PositionComponent
   final YarnProject yarnProject;
   late DialogueTextComponent mainDialogueTextComponent =
       DialogueTextComponent();
-  late DialogueTextComponent completedMainDialogueTextComponent =
+  late DialogueTextComponent fastCompletedMainDialogueTextComponent =
       DialogueTextComponent();
   late DialogueTextComponent nameDialogueTextComponent =
       DialogueTextComponent();
@@ -52,7 +52,7 @@ class ProjectViewComponent extends PositionComponent
       ..add(OpacityEffect.fadeIn(EffectController(duration: 0.25)));
 
     leftPerson
-      ..sprite = Sprite(gameRef.images.fromCache('test1.png'))
+      ..sprite = Sprite(gameRef.images.fromCache('transparent.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.01, gameRef.size.y * 0.1)
       ..opacity = 0
@@ -60,7 +60,7 @@ class ProjectViewComponent extends PositionComponent
           OpacityEffect.fadeIn(EffectController(duration: 0.5, startDelay: 1)));
 
     rightPerson
-      ..sprite = Sprite(gameRef.images.fromCache('test2.png'))
+      ..sprite = Sprite(gameRef.images.fromCache('transparent.png'))
       ..size = Vector2(400, 400)
       ..position = Vector2(gameRef.size.x * 0.99, gameRef.size.y * 0.1)
       ..opacity = 0
@@ -79,21 +79,23 @@ class ProjectViewComponent extends PositionComponent
               !_forwardCompleter.isCompleted) {
             _forwardCompleter.complete();
           } else {
-            completedMainDialogueTextComponent = DialogueTextComponent(
-              size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
-              textRenderer: textPaint,
-              position: Vector2(
-                gameRef.size.x * .05,
-                gameRef.size.y * .65,
-              ),
-              boxConfig: TextBoxConfig(
-                margins: const EdgeInsets.all(8.0),
-                growingBox: false,
-              ),
-            )..text = mainDialogueTextComponent.text;
-            add(completedMainDialogueTextComponent);
-            isCompletedMainDialogueRendered = true;
-            mainDialogueTextComponent.removeFromParent();
+            if (!isCompletedMainDialogueRendered) {
+              fastCompletedMainDialogueTextComponent = DialogueTextComponent(
+                size: Vector2(gameRef.size.x * .9, gameRef.size.y * .3),
+                textRenderer: textPaint,
+                position: Vector2(
+                  gameRef.size.x * .05,
+                  gameRef.size.y * .65,
+                ),
+                boxConfig: TextBoxConfig(
+                  margins: const EdgeInsets.all(8.0),
+                  growingBox: false,
+                ),
+              )..text = mainDialogueTextComponent.text;
+              add(fastCompletedMainDialogueTextComponent);
+              isCompletedMainDialogueRendered = true;
+              mainDialogueTextComponent.removeFromParent();
+            }
           }
         });
 
@@ -148,6 +150,9 @@ class ProjectViewComponent extends PositionComponent
 
   @override
   FutureOr<bool> onLineStart(DialogueLine line) async {
+    fastCompletedMainDialogueTextComponent.removeFromParent();
+    isCompletedMainDialogueRendered = false;
+    add(forwardButtonComponent);
     _forwardCompleter = Completer();
     await _advance(line);
     return super.onLineStart(line);
@@ -156,8 +161,9 @@ class ProjectViewComponent extends PositionComponent
   @override
   FutureOr<void> onLineFinish(DialogueLine line) async {
     mainDialogueTextComponent.removeFromParent();
-    completedMainDialogueTextComponent.removeFromParent();
+    // fastCompletedMainDialogueTextComponent.removeFromParent();
     isCompletedMainDialogueRendered = false;
+    forwardButtonComponent.removeFromParent();
     return super.onLineFinish(line);
   }
 
@@ -200,7 +206,7 @@ class ProjectViewComponent extends PositionComponent
     removeAll(optionsList);
     optionsList = [];
     addAll([
-      forwardButtonComponent,
+      // forwardButtonComponent,
       // mainDialogueTextComponent,
       mainDialogueOverlay,
       nameDialogueTextComponent,
@@ -210,7 +216,9 @@ class ProjectViewComponent extends PositionComponent
 
   @override
   FutureOr<void> onNodeStart(Node node) async {
-    add(forwardButtonComponent);
+    if (!forwardButtonComponent.isMounted) {
+      add(forwardButtonComponent);
+    }
     add(mainDialogueOverlay); // 노드 변경되고 mainDialogueOverlay 추가
     return super.onNodeStart(node);
   }
@@ -221,7 +229,7 @@ class ProjectViewComponent extends PositionComponent
     nameDialogueOverlay.removeFromParent();
     mainDialogueTextComponent.removeFromParent();
     mainDialogueOverlay.removeFromParent();
-    completedMainDialogueTextComponent.removeFromParent();
+    fastCompletedMainDialogueTextComponent.removeFromParent();
     forwardButtonComponent.removeFromParent();
     // 해당 대화 노드가 끝나고 처리하는 부분
     // this.removeFromParent();

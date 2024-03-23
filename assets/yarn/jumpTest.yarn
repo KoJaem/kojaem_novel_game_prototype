@@ -1,8 +1,8 @@
-<<character "블루" Blue>>
+<<character "테스트 더미" test>>
 title: jumpTest
 ---
 <<change_image "background" "background2.png">>
-Blue: 캐릭터 추가도 가능
-White: 테스트
-Red: 테스트
+test: 캐릭터 추가도 가능
+boy: 테스트
+girl: 테스트
 ===

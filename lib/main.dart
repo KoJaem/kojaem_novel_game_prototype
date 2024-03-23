@@ -73,8 +73,14 @@ class JennyGame extends FlameGame with TapCallbacks {
       }
     }
 
+    void removeText() {
+      projectViewComponent.fastCompletedMainDialogueTextComponent
+          .removeFromParent();
+    }
+
     yarnProject
       ..commands.addCommand2('change_image', imageChange)
+      ..commands.addCommand0('remove_text', removeText)
       ..parse(startDialogueData)
       ..parse(earlyMorningData)
       ..parse(jumpTestData);
