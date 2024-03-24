@@ -18,4 +18,39 @@ girl: 안녕하세요.
 <<change_image_with_animation "right" "doctor.png">>
 <<wait 1>>
 doctor: 안녕하세요.
+doctor: 보내주신 자료를 봤는데, 최근 유행하는 바이러스 같다고 하시던데, 확인좀 해볼까요?
+<<remove_text>>
+-> 여자1 얼굴에 있는것은 단순한 뾰루지이다.
+   doctor: 오, 걱정 안하셔도 됩니다.\n단순한 뾰루지 같네요.
+   doctor: 걱정하시는 바이러스는 초기증상으로 검은색을 띄어야하는데,\n해당 특징이 보이지않네요.
+   doctor: 혹시나 며칠뒤에 뾰루지가 검은색을 띄는 현상이 보인다면\nA회사의 온라인상담을 다시 신청해주세요.
+   girl: 아 다행이네요.. A회사 덕분에 걱정없이 신청이 된거 같아요
+   doctor: 네 병원입장에서도 A회사 덕분에 글로벌적으로 환자를 받는것도 용이해져서 너무 도움이 되고있어요.
+   girl: 넵 친절하게 알려주셔서 감사합니다!
+   <<change_image_with_animation "left" "transparent.png">>
+   <<change_image_with_animation "right" "transparent.png">>
+   <<wait 1>>
+   <<change_image_with_animation "background" "transparent.png">>
+   <<change_dialogue_color "conversation" "darkBlueGray" >>
+   이후 여자1은 외국에 있는 전문의에게 상담을 받는것도 생각보다 어려운것이 아니라는것을 알게되었다.
+-> 여자1 얼굴에 있는것은 위험한 바이러스이다.
+   doctor: 치명적인 바이러스가 맞는것으로 보이네요.
+   girl: 어떻게 해야하죠??
+   doctor: 병원으로 내원하셔야 할 것 같습니다. 수술을 진행해야 합니다.
+   girl: 하지만.. 미국까지 가서 치료를 받아야한다니 복잡할것 같아 너무 걱정이 되네요..
+   doctor: 그거라면 걱정마세요. A회사에서 많은 도움을 줄겁니다.
+   doctor: A회사의 목적은 모든 환자들이 국경제한없이 의료기회를 제공 받을 수 있는 세상을 만드는것을 하고 있으니까요.
+   doctor: 환자분께서 미국으로 내원하셔야 할 것 같으니,\n여러 절차를 설명해달라고 제가 A회사에 요청을 드려보겠습니다.
+   girl: 네 감사합니다!
+   <<change_image_with_animation "left" "transparent.png">>
+   <<change_image_with_animation "right" "transparent.png">>
+   <<wait 1>>
+   <<change_image_with_animation "background" "transparent.png">>
+   <<change_dialogue_color "conversation" "darkBlueGray" >>
+   이후 여자1은 본인이 생각한것보다 편하게 미국에서 치료를 받고 생활하였습니다.
+<<wait 1>>
+이렇게 제가 다니고 있는 회사는 국경제한없는 의료기회를 제공하는 것을 목적으로 하는 회사입니다.
+<<wait 1>>
+앞서 말씀드렸듯이, 이 프로젝트는 제가 다니는 회사\n"어떻게하면 재치있게 소개를 드릴 수 있을까?" 라는 생각에 취미삼아 만들어 봤습니다.
+부족한 내용도 많지만, 끝까지 봐주셔서 해주셔서 감사합니다!
 ===
