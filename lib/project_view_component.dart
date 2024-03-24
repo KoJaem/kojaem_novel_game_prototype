@@ -6,6 +6,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
+import 'package:jenny_study/rrect_dialogue_overlay.dart';
 import 'package:jenny_study/constants/customColor.dart';
 import 'package:jenny_study/dialogue_overlay.dart';
 import 'package:jenny_study/main.dart';
@@ -23,7 +24,7 @@ class ProjectViewComponent extends PositionComponent
   late DialogueTextComponent nameDialogueTextComponent =
       DialogueTextComponent();
   late DialogueOverlay mainDialogueOverlay = DialogueOverlay();
-  late DialogueOverlay nameDialogueOverlay = DialogueOverlay();
+  late RRectDialogueOverlay nameDialogueOverlay = RRectDialogueOverlay();
   final background = SpriteComponent();
   final leftPerson = SpriteComponent();
   final rightPerson = SpriteComponent();
@@ -46,7 +47,7 @@ class ProjectViewComponent extends PositionComponent
   @override
   FutureOr<void> onLoad() {
     background
-      ..sprite = Sprite(gameRef.images.fromCache('background.png'))
+      ..sprite = Sprite(gameRef.images.fromCache('transparent.png'))
       ..size = gameRef.size
       ..opacity = 0
       ..add(OpacityEffect.fadeIn(EffectController(duration: 0.25)));
@@ -127,7 +128,7 @@ class ProjectViewComponent extends PositionComponent
       ),
     );
 
-    nameDialogueOverlay = DialogueOverlay(
+    nameDialogueOverlay = RRectDialogueOverlay(
       size: Vector2(200, 40),
       position: Vector2(
         gameRef.size.x * .05,
@@ -209,8 +210,8 @@ class ProjectViewComponent extends PositionComponent
       // forwardButtonComponent,
       // mainDialogueTextComponent,
       mainDialogueOverlay,
-      nameDialogueTextComponent,
       nameDialogueOverlay,
+      nameDialogueTextComponent,
     ]);
   }
 

@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:jenny/jenny.dart';
 import 'package:jenny_study/project_view_component.dart';
+
+import 'constants/customColor.dart';
 // import 'package:jenny_study/project_view_component.dart';
 
 void main() async {
@@ -54,17 +56,23 @@ class JennyGame extends FlameGame with TapCallbacks {
           break;
         case 'left':
           await projectViewComponent.leftPerson
-              .add(OpacityEffect.fadeOut(EffectController(duration: 0.5)));
-          Future.delayed(const Duration(milliseconds: 500), () {
+              .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
+          Future.delayed(const Duration(milliseconds: 600), () {
             projectViewComponent.leftPerson.sprite =
                 Sprite(images.fromCache(url));
             projectViewComponent.leftPerson
-                .add(OpacityEffect.fadeIn(EffectController(duration: 0.5)));
+                .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
           });
           break;
         case 'background':
-          projectViewComponent.background.sprite =
-              Sprite(images.fromCache(url));
+          await projectViewComponent.background
+              .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
+          Future.delayed(const Duration(milliseconds: 600), () {
+            projectViewComponent.background.sprite =
+                Sprite(images.fromCache(url));
+            projectViewComponent.background
+                .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
+          });
         default:
           break;
       }
@@ -94,10 +102,24 @@ class JennyGame extends FlameGame with TapCallbacks {
       projectViewComponent.nameDialogueTextComponent.removeFromParent();
     }
 
+    void changeDialogueColor(String target, String colorKey) {
+      Color color = CustomColor.getColor(colorKey);
+      switch (target) {
+        case 'name':
+          projectViewComponent.nameDialogueOverlay.bgColor = color;
+          break;
+        case 'conversation':
+        default:
+          projectViewComponent.mainDialogueOverlay.bgColor = color;
+          break;
+      }
+    }
+
     yarnProject
       ..commands
           .addCommand2('change_image_with_animation', imageChangeWithAnimation)
       ..commands.addCommand2('change_image', imageChange)
+      ..commands.addCommand2('change_dialogue_color', changeDialogueColor)
       ..commands.addCommand0('remove_text', removeText)
       ..parse(startDialogueData)
       ..parse(consultationData);

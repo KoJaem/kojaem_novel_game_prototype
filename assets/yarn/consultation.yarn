@@ -1,6 +1,21 @@
+<<character "의사" doctor>>
 title: consultation
 ---
+<<change_image_with_animation "background" "transparent.png">>
+<<change_image_with_animation "left" "transparent.png">>
+<<change_image_with_animation "right" "transparent.png">>
+<<wait 1>>
+<<change_dialogue_color "conversation" "darkBlueGray" >>
+여자1은 A회사 플랫폼을 사용하여 온라인 상담을 신청하였다.\n(의사의 말은 번역이 되고있다고 생각해주세요.)
+<<remove_text>>
+<<wait 1>>
+<<change_dialogue_color "conversation" "black" >>
 <<change_image_with_animation "background" "background3.png">>
-girl: 장소변경 테스트
-boy: test
+<<wait 1>>
+<<change_image_with_animation "left" "girl.png">>
+<<wait 1>>
+girl: 안녕하세요.
+<<change_image_with_animation "right" "doctor.png">>
+<<wait 1>>
+doctor: 안녕하세요.
 ===

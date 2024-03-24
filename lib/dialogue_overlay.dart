@@ -9,13 +9,15 @@ class DialogueOverlay extends PositionComponent {
     super.position,
     this.bgColor,
   });
-  final Color? bgColor;
+  Color? bgColor;
 
   @override
   void render(Canvas canvas) {
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = bgColor ?? CustomColor.darkBlueGray.withAlpha(150),
+      Paint()
+        ..color =
+            bgColor?.withAlpha(150) ?? CustomColor.darkBlueGray.withAlpha(150),
     );
   }
 }
