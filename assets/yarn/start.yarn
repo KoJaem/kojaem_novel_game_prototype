@@ -8,12 +8,12 @@ title: start
 시간내서 봐주셔서 감사드립니다!\n(시작하겠습니다!)
 ((게임내에 나오는 바이러스는 실존하지 않는 바이러스입니다.))
 <<wait 1>>
-<<remove_text>>
-<< change_dialogue_color "name" "black" >>
-<< change_dialogue_color "conversation" "black" >>
+<<remove_textbox_with_animation>>
 <<change_image_with_animation "background" "background.png">>
 <<wait 1>>
 <<change_image_with_animation "left" "girl.png">>
+<<create_textbox>>
+<<change_dialogue_color "all" "black" >>
 <<wait 1>>
 girl: 아..얼굴에 뾰루지 난게 계속 신경쓰이네..
 <<change_image_with_animation "right" "boy.png">>
@@ -41,6 +41,10 @@ girl: 아 그래?? 어쩐담..
    girl: 다행이다. 근데 난 영어를 썩 잘하는편이 아니니까 주변 사람한테 부탁해야겠네..
    boy: 그거라면 걱정마. 번역은 A회사에서 도와준다고 들었어.
    girl: 그래..? 그럼 내일 아침에 바로 해봐야겠다
+   <<change_image_with_animation "background" "transparent.png">>
+   <<change_image_with_animation "left" "transparent.png">>
+   <<change_image_with_animation "right" "transparent.png">>
+   <<remove_textbox_with_animation>>
    <<jump consultation>>
 -> A회사에 글로벌 상담지원을 사용하지 않는다.
    girl: 아니야 됐어.. 그냥 뾰루지 같은데 미국에 상담하는건 오바같아..
@@ -48,5 +52,9 @@ girl: 아 그래?? 어쩐담..
    girl: 근데 난 영어도 못하고 미국에 상담을 요청한다는건 너무 복잡할거 같단말이지..
    boy: 그거라면 걱정마. 사용법은 정말 간단하게 되어있고,\n번역은 A회사에서 도와준다고 들었어.
    girl: 그래..? 그럼 내일 아침에 바로 해봐야겠다
+   <<remove_textbox_with_animation>>
+   <<change_image_with_animation "background" "transparent.png">>
+   <<change_image_with_animation "left" "transparent.png">>
+   <<change_image_with_animation "right" "transparent.png">>
    <<jump consultation>>
 ===
