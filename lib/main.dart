@@ -107,11 +107,6 @@ class JennyGame extends FlameGame with TapCallbacks {
           .removeFromParent();
       projectViewComponent.nameDialogueTextComponent.removeFromParent();
 
-      if (projectViewComponent.nameDialogueOverlay.isMounted) {
-        await projectViewComponent.nameDialogueOverlay
-            .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
-      }
-
       await projectViewComponent.mainDialogueOverlay
           .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
     }
