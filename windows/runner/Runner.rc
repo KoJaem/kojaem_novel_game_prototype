@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "jenny_study" "\0"
+            VALUE "FileDescription", "kojaem_novel_game_prototype" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "jenny_study" "\0"
+            VALUE "InternalName", "kojaem_novel_game_prototype" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "jenny_study.exe" "\0"
-            VALUE "ProductName", "jenny_study" "\0"
+            VALUE "OriginalFilename", "kojaem_novel_game_prototype.exe" "\0"
+            VALUE "ProductName", "kojaem_novel_game_prototype" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

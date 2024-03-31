@@ -1,4 +1,4 @@
-package com.example.jenny_study
+package com.example.kojaem_novel_game_prototype
 
 import io.flutter.embedding.android.FlutterActivity
 

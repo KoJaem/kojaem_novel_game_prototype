@@ -8,10 +8,10 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:jenny/jenny.dart';
-import 'package:jenny_study/project_view_component.dart';
+import 'package:kojaem_novel_game_prototype/project_view_component.dart';
 
 import 'constants/customColor.dart';
-// import 'package:jenny_study/project_view_component.dart';
+// import 'package:kojaem_novel_game_prototype/project_view_component.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

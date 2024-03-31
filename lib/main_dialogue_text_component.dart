@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:jenny_study/constants/customColor.dart';
+import 'package:kojaem_novel_game_prototype/constants/customColor.dart';
 
 class DialogueTextComponent extends TextBoxComponent {
   DialogueTextComponent({

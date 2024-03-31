@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:jenny_study/constants/customColor.dart';
-import 'package:jenny_study/provider/hasOpacityProvider.dart';
+import 'package:kojaem_novel_game_prototype/constants/customColor.dart';
+import 'package:kojaem_novel_game_prototype/provider/hasOpacityProvider.dart';
 
 class DialogueOverlay extends PositionComponent with HasOpacityProvider {
   DialogueOverlay({
