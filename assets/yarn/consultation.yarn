@@ -4,7 +4,7 @@ title: consultation
 <<wait 1>>
 <<change_dialogue_color "all" "darkBlueGray" >>
 <<create_textbox>>
-<<wait 0.5>>
+<<wait 1>>
 여자1은 A회사 플랫폼을 사용하여 온라인 상담을 신청하였다.\n(의사의 말은 번역이 되고있다고 생각해주세요.)
 <<remove_textbox_with_animation>>
 <<wait 1>>
@@ -32,8 +32,9 @@ doctor: 보내주신 자료를 봤는데, 최근 유행하는 바이러스 같�
    <<change_image_with_animation "right" "transparent.png">>
    <<remove_textbox_with_animation>>
    <<wait 1>>
-   <<change_dialogue_color "all" "darkBlueGray" >>
+   <<change_dialogue_color "conversation" "darkBlueGray" >>
    <<create_textbox>>
+   <<wait 1>>
    이후 여자1은 외국에 있는 전문의에게 상담을 받는것도 생각보다 어려운것이 아니라는것을 알게되었다.
 -> 여자1 얼굴에 있는것은 위험한 바이러스이다.
    doctor: 치명적인 바이러스가 맞는것으로 보이네요.
@@ -50,8 +51,9 @@ doctor: 보내주신 자료를 봤는데, 최근 유행하는 바이러스 같�
    <<change_image_with_animation "right" "transparent.png">>
    <<remove_textbox_with_animation>>
    <<wait 1>>
-   <<change_dialogue_color "all" "darkBlueGray" >>
+   <<change_dialogue_color "conversation" "darkBlueGray" >>
    <<create_textbox>>
+   <<wait 1>>
    // 장면전환을 위한 로직 end
    이후 여자1은 본인이 생각한것보다 편하게 미국에서 치료를 받고 생활하였습니다.
 <<wait 1>>

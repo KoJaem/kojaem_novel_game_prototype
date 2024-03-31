@@ -112,9 +112,6 @@ class JennyGame extends FlameGame with TapCallbacks {
     }
 
     void createTextBox() async {
-      await projectViewComponent.nameDialogueOverlay
-          .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
-
       await projectViewComponent.mainDialogueOverlay
           .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
     }
