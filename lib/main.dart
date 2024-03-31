@@ -96,10 +96,32 @@ class JennyGame extends FlameGame with TapCallbacks {
       }
     }
 
-    void removeText() {
+    void removeText() async {
       projectViewComponent.fastCompletedMainDialogueTextComponent
           .removeFromParent();
       projectViewComponent.nameDialogueTextComponent.removeFromParent();
+    }
+
+    void removeTextBoxWithAnimation() async {
+      projectViewComponent.fastCompletedMainDialogueTextComponent
+          .removeFromParent();
+      projectViewComponent.nameDialogueTextComponent.removeFromParent();
+
+      if (projectViewComponent.nameDialogueOverlay.isMounted) {
+        await projectViewComponent.nameDialogueOverlay
+            .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
+      }
+
+      await projectViewComponent.mainDialogueOverlay
+          .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
+    }
+
+    void createTextBox() async {
+      await projectViewComponent.nameDialogueOverlay
+          .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
+
+      await projectViewComponent.mainDialogueOverlay
+          .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
     }
 
     void changeDialogueColor(String target, String colorKey) {
@@ -109,7 +131,10 @@ class JennyGame extends FlameGame with TapCallbacks {
           projectViewComponent.nameDialogueOverlay.bgColor = color;
           break;
         case 'conversation':
+          projectViewComponent.mainDialogueOverlay.bgColor = color;
+        case 'all':
         default:
+          projectViewComponent.nameDialogueOverlay.bgColor = color;
           projectViewComponent.mainDialogueOverlay.bgColor = color;
           break;
       }
@@ -120,7 +145,10 @@ class JennyGame extends FlameGame with TapCallbacks {
           .addCommand2('change_image_with_animation', imageChangeWithAnimation)
       ..commands.addCommand2('change_image', imageChange)
       ..commands.addCommand2('change_dialogue_color', changeDialogueColor)
+      ..commands.addCommand0('create_textbox', createTextBox)
       ..commands.addCommand0('remove_text', removeText)
+      ..commands.addCommand0(
+          'remove_textbox_with_animation', removeTextBoxWithAnimation)
       ..parse(startDialogueData)
       ..parse(consultationData);
 

@@ -285,10 +285,6 @@ class ProjectViewComponent extends PositionComponent
       ),
     )..text = lineText;
 
-    // 기존 이미지랑 다른부분이 있는지 확인하고 수정하도록 하면 될거같기도함.
-    // print(yarnProject.variables.getStringValue('\$testImage'));
-    // print(yarnProject.variables.variables);
-
     add(mainDialogueTextComponent);
 
     return _forwardCompleter.future;

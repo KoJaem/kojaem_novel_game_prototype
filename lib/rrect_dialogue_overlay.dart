@@ -2,11 +2,17 @@ import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:jenny_study/constants/customColor.dart';
+import 'package:jenny_study/provider/hasOpacityProvider.dart';
 
-class RRectDialogueOverlay extends PositionComponent {
+class RRectDialogueOverlay extends PositionComponent with HasOpacityProvider {
   RRectDialogueOverlay({
     super.size,
     super.position,
+    super.anchor,
+    super.angle,
+    super.children,
+    super.priority,
+    super.scale,
     this.bgColor,
   });
   Color? bgColor;
