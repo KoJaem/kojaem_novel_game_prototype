@@ -6,11 +6,11 @@ import 'package:flame/effects.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
-import 'package:jenny_study/rrect_dialogue_overlay.dart';
 import 'package:jenny_study/constants/customColor.dart';
 import 'package:jenny_study/dialogue_overlay.dart';
 import 'package:jenny_study/main.dart';
 import 'package:jenny_study/main_dialogue_text_component.dart';
+import 'package:jenny_study/rrect_dialogue_overlay.dart';
 
 class ProjectViewComponent extends PositionComponent
     with DialogueView, HasGameRef<JennyGame> {

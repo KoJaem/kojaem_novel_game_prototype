@@ -18,13 +18,26 @@ void main() async {
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
 
+  // * 모바일 배포 시
+  // runApp(GameWidget(
+  //   game: JennyGame(),
+  // ));
+
+  // * 웹 배포 시 (비율고정)
   runApp(GameWidget(
-    game: JennyGame(),
-  ));
+      game: JennyGame(
+    camera: CameraComponent.withFixedResolution(
+      width: 932,
+      height: 430,
+    ),
+  )));
 }
 
 class JennyGame extends FlameGame with TapCallbacks {
   YarnProject yarnProject = YarnProject();
+
+  // * 웹 배포시 주석 해제
+  JennyGame({super.camera});
 
   @override
   FutureOr<void> onLoad() async {
@@ -145,6 +158,15 @@ class JennyGame extends FlameGame with TapCallbacks {
       ..parse(consultationData);
 
     dialogueRunner.startDialogue('start');
+
+    // CameraComponent cam = CameraComponent.withFixedResolution(
+    //   world: world,
+    //   width: 1387,
+    //   height: 640,
+    // );
+
+    // cam.viewfinder.anchor = Anchor.topLeft;
+
     add(projectViewComponent);
 
     return super.onLoad();

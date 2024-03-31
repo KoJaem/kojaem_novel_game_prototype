@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   jenny: ^1.2.1
-  flame: ^1.14.0
+  flame: ^1.15.0
 
 dev_dependencies:
   flutter_test:
