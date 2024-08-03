@@ -5,6 +5,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:jenny/jenny.dart';
@@ -19,29 +20,31 @@ void main() async {
   await Flame.device.setLandscape();
 
   // * 모바일 배포 시
-  // runApp(GameWidget(
-  //   game: JennyGame(),
-  // ));
+  runApp(GameWidget(
+    game: JennyGame(),
+  ));
 
   // * 웹 배포 시 (비율고정)
-  runApp(GameWidget(
-      game: JennyGame(
-    camera: CameraComponent.withFixedResolution(
-      width: 932,
-      height: 430,
-    ),
-  )));
+  // runApp(GameWidget(
+  //     game: JennyGame(
+  //   camera: CameraComponent.withFixedResolution(
+  //     width: 932,
+  //     height: 430,
+  //   ),
+  // )));
 }
 
 class JennyGame extends FlameGame with TapCallbacks {
   YarnProject yarnProject = YarnProject();
-
+  bool isPlayingSound = false;
   // * 웹 배포시 주석 해제
-  JennyGame({super.camera});
+  // JennyGame({super.camera});
 
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
+
+    FlameAudio.bgm.play('HYP - Picnic.mp3');
 
     String startDialogueData =
         await rootBundle.loadString('assets/yarn/start.yarn');
@@ -145,6 +148,14 @@ class JennyGame extends FlameGame with TapCallbacks {
       }
     }
 
+    void startSound(String url) async {
+      // 설정에서 volume 설정하는것도 좋을 것 같음
+      FlameAudio.play(
+        url,
+        volume: 1,
+      );
+    }
+
     yarnProject
       ..commands
           .addCommand2('change_image_with_animation', imageChangeWithAnimation)
@@ -154,6 +165,7 @@ class JennyGame extends FlameGame with TapCallbacks {
       ..commands.addCommand0('remove_text', removeText)
       ..commands.addCommand0(
           'remove_textbox_with_animation', removeTextBoxWithAnimation)
+      ..commands.addCommand1('start_sound', startSound)
       ..parse(startDialogueData)
       ..parse(consultationData);
 

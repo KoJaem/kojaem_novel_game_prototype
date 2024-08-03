@@ -4,8 +4,10 @@
 title: start
 ---
 안녕하세요. 개발자 KoJaem 입니다.
+<<start_sound "HYP - shoes.mp3" >>
 어떻게하면 기억에 남는 이력서가 될 수 있을까 고민을 해보다가,\n요즘 관심을 갖고 공부해보고 있는 Flutter를 사용하여 \n간단하게 제가 다니는 회사에 대해 설명해보았습니다
 시간내서 봐주셔서 감사드립니다!\n(시작하겠습니다!)
+<<start_sound "HYP - shoes.mp3" >>
 ((게임내에 나오는 바이러스는 실존하지 않는 바이러스입니다.))
 <<wait 1>>
 <<remove_textbox_with_animation>>
