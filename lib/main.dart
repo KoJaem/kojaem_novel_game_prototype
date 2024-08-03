@@ -37,6 +37,8 @@ void main() async {
 class JennyGame extends FlameGame with TapCallbacks {
   YarnProject yarnProject = YarnProject();
   bool isPlayingSound = false;
+  var sound;
+
   // * 웹 배포시 주석 해제
   // JennyGame({super.camera});
 
@@ -150,7 +152,11 @@ class JennyGame extends FlameGame with TapCallbacks {
 
     void startSound(String url) async {
       // 설정에서 volume 설정하는것도 좋을 것 같음
-      FlameAudio.play(
+      if (sound != null) {
+        await sound.stop();
+      }
+
+      sound = await FlameAudio.play(
         url,
         volume: 1,
       );
