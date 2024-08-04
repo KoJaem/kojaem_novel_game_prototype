@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:jenny/jenny.dart';
 import 'package:kojaem_novel_game_prototype/project_view_component.dart';
+import 'package:kojaem_novel_game_prototype/route_demo.dart';
 
 import 'constants/customColor.dart';
 // import 'package:kojaem_novel_game_prototype/project_view_component.dart';
@@ -19,10 +20,12 @@ void main() async {
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
 
-  // * 모바일 배포 시
-  runApp(GameWidget(
-    game: JennyGame(),
-  ));
+  // // * 모바일 배포 시
+  // runApp(GameWidget(
+  //   game: JennyGame(),
+  // ));
+
+  runApp(GameWidget(game: RouterGame()));
 
   // * 웹 배포 시 (비율고정)
   // runApp(GameWidget(
@@ -34,7 +37,7 @@ void main() async {
   // )));
 }
 
-class JennyGame extends FlameGame with TapCallbacks {
+class JennyGame extends Component with HasGameRef<RouterGame>, TapCallbacks {
   YarnProject yarnProject = YarnProject();
   bool isPlayingSound = false;
   var sound;
@@ -44,7 +47,7 @@ class JennyGame extends FlameGame with TapCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    await images.loadAllImages();
+    await game.images.loadAllImages();
 
     FlameAudio.bgm.play('HYP - Picnic.mp3');
 
@@ -67,7 +70,7 @@ class JennyGame extends FlameGame with TapCallbacks {
               .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
           Future.delayed(const Duration(milliseconds: 600), () {
             projectViewComponent.rightPerson.sprite =
-                Sprite(images.fromCache(url));
+                Sprite(game.images.fromCache(url));
             projectViewComponent.rightPerson
                 .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
           });
@@ -77,7 +80,7 @@ class JennyGame extends FlameGame with TapCallbacks {
               .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
           Future.delayed(const Duration(milliseconds: 600), () {
             projectViewComponent.leftPerson.sprite =
-                Sprite(images.fromCache(url));
+                Sprite(game.images.fromCache(url));
             projectViewComponent.leftPerson
                 .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
           });
@@ -87,7 +90,7 @@ class JennyGame extends FlameGame with TapCallbacks {
               .add(OpacityEffect.fadeOut(EffectController(duration: 0.3)));
           Future.delayed(const Duration(milliseconds: 600), () {
             projectViewComponent.background.sprite =
-                Sprite(images.fromCache(url));
+                Sprite(game.images.fromCache(url));
             projectViewComponent.background
                 .add(OpacityEffect.fadeIn(EffectController(duration: 0.3)));
           });
@@ -100,15 +103,15 @@ class JennyGame extends FlameGame with TapCallbacks {
       switch (position) {
         case 'right':
           projectViewComponent.rightPerson.sprite =
-              Sprite(images.fromCache(url));
+              Sprite(game.images.fromCache(url));
           break;
         case 'left':
           projectViewComponent.leftPerson.sprite =
-              Sprite(images.fromCache(url));
+              Sprite(game.images.fromCache(url));
           break;
         case 'background':
           projectViewComponent.background.sprite =
-              Sprite(images.fromCache(url));
+              Sprite(game.images.fromCache(url));
         default:
           break;
       }
@@ -186,7 +189,5 @@ class JennyGame extends FlameGame with TapCallbacks {
     // cam.viewfinder.anchor = Anchor.topLeft;
 
     add(projectViewComponent);
-
-    return super.onLoad();
   }
 }
