@@ -188,6 +188,10 @@ class JennyGame extends Component with HasGameRef<RouterGame>, TapCallbacks {
 
     // cam.viewfinder.anchor = Anchor.topLeft;
 
-    add(projectViewComponent);
+    addAll([
+      projectViewComponent,
+      BackRouteButton(),
+      PauseButton(),
+    ]);
   }
 }

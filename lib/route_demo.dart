@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/rendering.dart';
+import 'package:kojaem_novel_game_prototype/constants/customColor.dart';
 import 'package:kojaem_novel_game_prototype/main.dart';
 
 class RouterGame extends FlameGame {
@@ -36,10 +37,10 @@ class SplashScreenPage extends Component
     addAll([
       Background(const Color(0xff282828)),
       TextBoxComponent(
-        text: '[Router demo]',
+        text: '[화면을 클릭해주세요]',
         textRenderer: TextPaint(
           style: const TextStyle(
-            color: Color(0x66ffffff),
+            color: CustomColor.brightGray,
             fontSize: 16,
           ),
         ),
@@ -208,8 +209,8 @@ abstract class SimpleButton extends PositionComponent with TapCallbacks {
   }
 }
 
-class BackButton extends SimpleButton with HasGameReference<RouterGame> {
-  BackButton()
+class BackRouteButton extends SimpleButton with HasGameReference<RouterGame> {
+  BackRouteButton()
       : super(
           Path()
             ..moveTo(22, 8)
@@ -244,7 +245,7 @@ class Level1Page extends Component {
     final game = findGame()!;
     addAll([
       Background(const Color(0xbb2a074f)),
-      BackButton(),
+      BackRouteButton(),
       PauseButton(),
       Planet(
         radius: 25,
@@ -278,7 +279,7 @@ class Level2Page extends Component {
     final game = findGame()!;
     addAll([
       Background(const Color(0xff052b44)),
-      BackButton(),
+      BackRouteButton(),
       PauseButton(),
       Planet(
         radius: 30,
